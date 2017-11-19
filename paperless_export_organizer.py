@@ -1,4 +1,7 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
+
+# Copyright (c) 2017, Philipp Hack
+# All rights reserved.
 
 from functools import partial
 from datetime import datetime
@@ -12,13 +15,13 @@ def link_document(relative, title, source, output_dir, subdir=""):
     link_name = '{}.pdf'.format(path.join(output_dir, subdir, title))
     try:
         makedirs(dirname(link_name))
-    except FileExistsError:
+    except OSError:
         pass
     if relative:
         source = relpath(source, start=dirname(link_name))
     try:
         symlink(source, link_name)
-    except FileExistsError:
+    except OSError:
         pass
     return link_name
 
